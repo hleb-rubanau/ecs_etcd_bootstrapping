@@ -1,0 +1,12 @@
+FROM gliderlabs/registrator:latest 
+MAINTAINER Hleb Rubanau <g.rubanau@gmail.com>
+
+RUN apk add --update jq curl bash \
+    && rm -rf /var/cache/apk/* 
+
+COPY registrator_entrypoint.sh /usr/local/bin/aws_entrypoint.sh
+COPY get_local_ip.sh /usr/local/bin/get_local_ip.sh
+RUN chmod u+x /usr/local/bin/*.sh
+
+VOLUME /data
+ENTRYPOINT [ "/bin/bash", "/usr/local/bin/aws_entrypoint.sh" ]
