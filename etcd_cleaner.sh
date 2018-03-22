@@ -18,8 +18,8 @@ function do_cleanup() {
     for service in $( list_services ) ; do
         container_name=$( echo "$service" | cut -f2 -d: )
         if [ -z "$( docker ps | grep $container_name )" ]; then
-               echo "Remove dangling record: $service"
-           echo "etcdctl --endpoints="$ETCD_ENDPOINTS" rm $service"
+           echo "Remove dangling record: $service"
+           etcdctl --endpoints="$ETCD_ENDPOINTS" rm $service
         fi
     done
 }
